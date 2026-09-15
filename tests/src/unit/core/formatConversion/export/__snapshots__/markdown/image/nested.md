@@ -1,0 +1,3 @@
+<figure><img src="exampleURL"><figcaption>Caption</figcaption></figure>
+
+<figure><img src="exampleURL"><figcaption>Caption</figcaption></figure>

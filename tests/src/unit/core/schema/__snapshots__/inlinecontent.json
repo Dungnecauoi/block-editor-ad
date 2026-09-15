@@ -1,0 +1,42 @@
+{
+  "link": {
+    "config": "link",
+    "implementation": {},
+  },
+  "mention": {
+    "config": {
+      "content": "none",
+      "propSchema": {
+        "user": {
+          "default": "",
+        },
+      },
+      "type": "mention",
+    },
+    "extensions": undefined,
+    "implementation": {
+      "node": null,
+      "parse": [Function],
+      "render": [Function],
+      "toExternalHTML": [Function],
+    },
+  },
+  "tag": {
+    "config": {
+      "content": "styled",
+      "propSchema": {},
+      "type": "tag",
+    },
+    "extensions": undefined,
+    "implementation": {
+      "node": null,
+      "parse": [Function],
+      "render": [Function],
+      "toExternalHTML": undefined,
+    },
+  },
+  "text": {
+    "config": "text",
+    "implementation": {},
+  },
+}

@@ -1,0 +1,39 @@
+{
+  "name": "@blocknote/vanilla",
+  "version": "0.54.2",
+  "description": "Standalone Vanilla JavaScript / TypeScript pure DOM BlockNote with full UI (0% React)",
+  "author": "duxbo",
+  "license": "MPL-2.0",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./standalone": "./dist/blocknote-vanilla.min.js",
+    "./style.css": "./dist/vanilla.css"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "dependencies": {
+    "@blocknote/code-block": "workspace:*",
+    "@blocknote/core": "workspace:*",
+    "@blocknote/xl-multi-column": "workspace:*",
+    "katex": "^0.16.11"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0",
+    "vite-plugin-dts": "^4.5.3"
+  }
+}

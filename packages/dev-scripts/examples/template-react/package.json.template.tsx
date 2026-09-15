@@ -1,0 +1,47 @@
+import { getCatalogVersion, type Project } from "../util.js";
+
+const template = (project: Project) => ({
+  name: "@blocknote/example-" + project.fullSlug.replace("/", "-"),
+  description: "AUTO-GENERATED FILE, DO NOT EDIT DIRECTLY",
+  type: "module",
+  private: true,
+  version: "0.12.4",
+  scripts: {
+    start: "vite",
+    dev: "vite",
+    "build:prod": "tsc && vite build",
+    preview: "vite preview",
+  },
+  dependencies: {
+    "@blocknote/ariakit": "latest",
+    "@blocknote/core": "latest",
+    "@blocknote/mantine": "latest",
+    "@blocknote/react": "latest",
+    "@blocknote/shadcn": "latest",
+    "@mantine/core": "^9.0.2",
+    "@mantine/hooks": "^9.0.2",
+    react: "^19.2.3",
+    "react-dom": "^19.2.3",
+    ...(project.config.tailwind
+      ? {
+          tailwindcss: "^4.1.14",
+          "tw-animate-css": "^1.4.0",
+        }
+      : {}),
+    ...(project.config?.dependencies || {}),
+  },
+  devDependencies: {
+    ...(project.config.tailwind
+      ? {
+          "@tailwindcss/vite": "^4.1.14",
+        }
+      : {}),
+    "@types/react": "^19.2.3",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    vite: getCatalogVersion("vite"),
+    ...(project.config?.devDependencies || {}),
+  },
+});
+
+export default template;

@@ -1,0 +1,22 @@
+[
+  {
+    "attrs": {
+      "id": "1",
+    },
+    "content": [
+      {
+        "attrs": {
+          "language": "javascript",
+        },
+        "content": [
+          {
+            "text": "console.log('Hello, world!');",
+            "type": "text",
+          },
+        ],
+        "type": "codeBlock",
+      },
+    ],
+    "type": "blockContainer",
+  },
+]

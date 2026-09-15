@@ -1,0 +1,16 @@
+[
+  {
+    "attrs": {
+      "id": "1",
+    },
+    "content": [
+      {
+        "attrs": {
+          "language": "javascript",
+        },
+        "type": "codeBlock",
+      },
+    ],
+    "type": "blockContainer",
+  },
+]

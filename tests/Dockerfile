@@ -1,0 +1,77 @@
+# syntax=docker/dockerfile:1.7-labs
+# Fixed Linux environment for the Vitest Browser Mode e2e suite. Running the
+# browser here (instead of natively on macOS) guarantees parity with CI for
+# keyboard semantics, the WebKit engine build, and font rendering — the same
+# reason the old Playwright suite ran in Docker. The Vitest UI is HTTP-served, so
+# it's viewable from the host browser even though the browser itself is headless.
+#
+# Build context is the repo root. Host node_modules are NOT reused (they hold
+# macOS-native binaries — vite-plus napi, oxc, esbuild); deps are installed fresh
+# for Linux here.
+#
+# The image deliberately holds NO package source and does NOT build the packages
+# to dist. The e2e suite resolves every @blocknote/* package to its src/ (see the
+# alias block in vite.config.browser.ts) and vite transpiles it at test time, so
+# the run scripts bind-mount packages/*/src live. The COPY steps below pull in
+# only what the image needs — the dependency manifests and the example apps — so
+# editing package source never invalidates a cached layer; only a dependency
+# change (a package.json / the lockfile) forces a rebuild.
+#
+#   Build:  pnpm e2e:image           (rebuild only after dependency changes)
+#   Run:    pnpm e2e / e2e:ui / e2e:updateSnaps   (bind-mount live source)
+FROM mcr.microsoft.com/playwright:v1.60.0-noble
+
+WORKDIR /work
+
+# pnpm matching the repo's packageManager.
+RUN corepack enable && corepack prepare pnpm@11.8.0 --activate
+
+# Copy ONLY the dependency manifests — every workspace member's package.json plus
+# the lockfile/workspace file — preserving their paths with --parents. These are
+# the entire input to `pnpm install`, so editing package *source* can't bust this
+# layer (or the install below); only a manifest or the lockfile changing does.
+COPY --parents pnpm-lock.yaml pnpm-workspace.yaml **/package.json ./
+# pnpm patches are referenced by the lockfile and required during install.
+COPY patches ./patches
+
+# Install workspace deps (Linux binaries) + bootstrap the vite-plus toolchain
+# (the root `prepare` script runs `vp config`, which fetches vp's node runtime).
+# `docs` is excluded: its fumadocs-mdx postinstall needs docs source we don't
+# ship, and the e2e suite never touches docs. The `--filter '!docs'` alone is not
+# enough — pnpm still runs the docs `postinstall` lifecycle script, which fails
+# in fumadocs-mdx. SKIP_DOCS_POSTINSTALL makes that script a no-op (see
+# docs/package.json) without disabling the native build scripts other deps need.
+# BuildKit cache mounts persist the pnpm store (package tarballs) and cache
+# (registry metadata, which the supply-chain policy checks hit per package)
+# across image rebuilds: after a dependency change, the reinstall only
+# fetches what actually changed instead of the whole workspace store. The
+# store lives on a separate mount, so pnpm copies instead of hardlinking -
+# still far cheaper than downloading. The first build after adding this
+# seeds the caches at full cost.
+# minimumReleaseAge is disabled here: the policy re-verifies every package
+# against live registry metadata (2000+ requests), which is both the slow
+# part of this step and flaky under Docker Desktop's NAT - and the frozen
+# lockfile being installed was already verified against the policy by the
+# local install that produced it (and by CI). A throwaway test image
+# re-checking it buys nothing.
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm-store \
+    --mount=type=cache,id=pnpm-cache,target=/root/.cache/pnpm \
+    SKIP_DOCS_POSTINSTALL=1 pnpm install --frozen-lockfile --filter '!docs' \
+    --store-dir /pnpm-store --config.minimumReleaseAge=0
+
+# Bake in the example apps: the tests import them and vite transpiles them from
+# source at run time. They sit after the install layer, so editing an example
+# rebuilds only this cheap COPY — never triggers a reinstall. (Package and test
+# sources are bind-mounted live by the run scripts, so they aren't copied here.)
+COPY examples ./examples
+
+WORKDIR /work/tests
+# Callers append flags, e.g. `docker run <img> --run` or `--ui --watch --no-open`.
+# `vp` is invoked through its bin symlink rather than `pnpm exec`: under CI=1
+# (which the run scripts set) `pnpm exec` first verifies node_modules against the
+# lockfile and re-installs when they differ. The install above is filtered
+# (`!docs`), so that check always fires — and reinstalling docs pulls
+# better-sqlite3, whose prebuilt binary isn't always available; the node-gyp
+# fallback then fails since this image has no `make`. The image's deps are
+# correct by construction, so there's nothing to verify.
+ENTRYPOINT ["node_modules/.bin/vp", "test", "-c", "vite.config.browser.ts"]

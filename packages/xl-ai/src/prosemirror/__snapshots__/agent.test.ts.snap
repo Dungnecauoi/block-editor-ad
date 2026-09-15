@@ -1,0 +1,475 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getStepsAsAgent > multiple steps 1`] = `
+[
+  {
+    "prosemirrorSteps": [],
+    "selection": {
+      "anchor": 3,
+      "head": 8,
+    },
+    "type": "select",
+  },
+  {
+    "prosemirrorSteps": [
+      {
+        "from": 3,
+        "mark": {
+          "attrs": {
+            "id": null,
+          },
+          "type": "y-attributed-delete",
+        },
+        "stepType": "addMark",
+        "to": 8,
+      },
+      {
+        "from": 8,
+        "slice": {
+          "content": [
+            {
+              "text": "H",
+              "type": "text",
+            },
+          ],
+        },
+        "stepType": "replace",
+        "to": 8,
+      },
+      {
+        "from": 8,
+        "mark": {
+          "attrs": {
+            "id": null,
+          },
+          "type": "y-attributed-insert",
+        },
+        "stepType": "addMark",
+        "to": 9,
+      },
+    ],
+    "selection": {
+      "anchor": 9,
+      "head": 9,
+    },
+    "type": "replace",
+  },
+  {
+    "prosemirrorSteps": [
+      {
+        "from": 8,
+        "slice": {
+          "content": [
+            {
+              "text": "Hi",
+              "type": "text",
+            },
+          ],
+        },
+        "stepType": "replace",
+        "to": 9,
+      },
+      {
+        "from": 8,
+        "mark": {
+          "attrs": {
+            "id": null,
+          },
+          "type": "y-attributed-insert",
+        },
+        "stepType": "addMark",
+        "to": 10,
+      },
+    ],
+    "selection": {
+      "anchor": 10,
+      "head": 10,
+    },
+    "type": "insert",
+  },
+  {
+    "prosemirrorSteps": [],
+    "selection": {
+      "anchor": 12,
+      "head": 17,
+    },
+    "type": "select",
+  },
+  {
+    "prosemirrorSteps": [
+      {
+        "from": 12,
+        "mark": {
+          "attrs": {
+            "id": null,
+          },
+          "type": "y-attributed-delete",
+        },
+        "stepType": "addMark",
+        "to": 17,
+      },
+      {
+        "from": 17,
+        "slice": {
+          "content": [
+            {
+              "text": "t",
+              "type": "text",
+            },
+          ],
+        },
+        "stepType": "replace",
+        "to": 17,
+      },
+      {
+        "from": 17,
+        "mark": {
+          "attrs": {
+            "id": null,
+          },
+          "type": "y-attributed-insert",
+        },
+        "stepType": "addMark",
+        "to": 18,
+      },
+    ],
+    "selection": {
+      "anchor": 18,
+      "head": 18,
+    },
+    "type": "replace",
+  },
+  {
+    "prosemirrorSteps": [
+      {
+        "from": 17,
+        "slice": {
+          "content": [
+            {
+              "text": "th",
+              "type": "text",
+            },
+          ],
+        },
+        "stepType": "replace",
+        "to": 18,
+      },
+      {
+        "from": 17,
+        "mark": {
+          "attrs": {
+            "id": null,
+          },
+          "type": "y-attributed-insert",
+        },
+        "stepType": "addMark",
+        "to": 19,
+      },
+    ],
+    "selection": {
+      "anchor": 19,
+      "head": 19,
+    },
+    "type": "insert",
+  },
+  {
+    "prosemirrorSteps": [
+      {
+        "from": 17,
+        "slice": {
+          "content": [
+            {
+              "text": "the",
+              "type": "text",
+            },
+          ],
+        },
+        "stepType": "replace",
+        "to": 19,
+      },
+      {
+        "from": 17,
+        "mark": {
+          "attrs": {
+            "id": null,
+          },
+          "type": "y-attributed-insert",
+        },
+        "stepType": "addMark",
+        "to": 20,
+      },
+    ],
+    "selection": {
+      "anchor": 20,
+      "head": 20,
+    },
+    "type": "insert",
+  },
+  {
+    "prosemirrorSteps": [
+      {
+        "from": 17,
+        "slice": {
+          "content": [
+            {
+              "text": "ther",
+              "type": "text",
+            },
+          ],
+        },
+        "stepType": "replace",
+        "to": 20,
+      },
+      {
+        "from": 17,
+        "mark": {
+          "attrs": {
+            "id": null,
+          },
+          "type": "y-attributed-insert",
+        },
+        "stepType": "addMark",
+        "to": 21,
+      },
+    ],
+    "selection": {
+      "anchor": 21,
+      "head": 21,
+    },
+    "type": "insert",
+  },
+  {
+    "prosemirrorSteps": [
+      {
+        "from": 17,
+        "slice": {
+          "content": [
+            {
+              "text": "there",
+              "type": "text",
+            },
+          ],
+        },
+        "stepType": "replace",
+        "to": 21,
+      },
+      {
+        "from": 17,
+        "mark": {
+          "attrs": {
+            "id": null,
+          },
+          "type": "y-attributed-insert",
+        },
+        "stepType": "addMark",
+        "to": 22,
+      },
+    ],
+    "selection": {
+      "anchor": 22,
+      "head": 22,
+    },
+    "type": "insert",
+  },
+]
+`;
+
+exports[`getStepsAsAgent > node attr change 1`] = `
+[
+  {
+    "prosemirrorSteps": [
+      {
+        "from": 2,
+        "gapFrom": 3,
+        "gapTo": 16,
+        "insert": 1,
+        "slice": {
+          "content": [
+            {
+              "attrs": {
+                "backgroundColor": "default",
+                "textAlignment": "right",
+                "textColor": "default",
+              },
+              "marks": [
+                {
+                  "attrs": {
+                    "attrName": "textAlignment",
+                    "id": null,
+                    "newValue": "right",
+                    "previousValue": "left",
+                    "type": "attr",
+                  },
+                  "type": "y-attributed-format",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+        },
+        "stepType": "replaceAround",
+        "structure": true,
+        "to": 17,
+      },
+    ],
+    "selection": undefined,
+    "type": "replace",
+  },
+]
+`;
+
+exports[`getStepsAsAgent > node type change 1`] = `
+[
+  {
+    "prosemirrorSteps": [
+      {
+        "from": 2,
+        "gapFrom": 3,
+        "gapTo": 16,
+        "insert": 1,
+        "slice": {
+          "content": [
+            {
+              "attrs": {
+                "backgroundColor": "default",
+                "isToggleable": false,
+                "level": 1,
+                "textAlignment": "left",
+                "textColor": "default",
+              },
+              "marks": [
+                {
+                  "attrs": {
+                    "attrName": null,
+                    "id": null,
+                    "newValue": "heading",
+                    "previousValue": "paragraph",
+                    "type": "nodeType",
+                  },
+                  "type": "y-attributed-format",
+                },
+                {
+                  "attrs": {
+                    "attrName": "level",
+                    "id": null,
+                    "newValue": 1,
+                    "previousValue": null,
+                    "type": "attr",
+                  },
+                  "type": "y-attributed-format",
+                },
+                {
+                  "attrs": {
+                    "attrName": "isToggleable",
+                    "id": null,
+                    "newValue": false,
+                    "previousValue": null,
+                    "type": "attr",
+                  },
+                  "type": "y-attributed-format",
+                },
+              ],
+              "type": "heading",
+            },
+          ],
+        },
+        "stepType": "replaceAround",
+        "structure": true,
+        "to": 17,
+      },
+    ],
+    "selection": undefined,
+    "type": "replace",
+  },
+]
+`;
+
+exports[`getStepsAsAgent > simple replace step 1`] = `
+[
+  {
+    "prosemirrorSteps": [],
+    "selection": {
+      "anchor": 3,
+      "head": 8,
+    },
+    "type": "select",
+  },
+  {
+    "prosemirrorSteps": [
+      {
+        "from": 3,
+        "mark": {
+          "attrs": {
+            "id": null,
+          },
+          "type": "y-attributed-delete",
+        },
+        "stepType": "addMark",
+        "to": 8,
+      },
+      {
+        "from": 8,
+        "slice": {
+          "content": [
+            {
+              "text": "H",
+              "type": "text",
+            },
+          ],
+        },
+        "stepType": "replace",
+        "to": 8,
+      },
+      {
+        "from": 8,
+        "mark": {
+          "attrs": {
+            "id": null,
+          },
+          "type": "y-attributed-insert",
+        },
+        "stepType": "addMark",
+        "to": 9,
+      },
+    ],
+    "selection": {
+      "anchor": 9,
+      "head": 9,
+    },
+    "type": "replace",
+  },
+  {
+    "prosemirrorSteps": [
+      {
+        "from": 8,
+        "slice": {
+          "content": [
+            {
+              "text": "Hi",
+              "type": "text",
+            },
+          ],
+        },
+        "stepType": "replace",
+        "to": 9,
+      },
+      {
+        "from": 8,
+        "mark": {
+          "attrs": {
+            "id": null,
+          },
+          "type": "y-attributed-insert",
+        },
+        "stepType": "addMark",
+        "to": 10,
+      },
+    ],
+    "selection": {
+      "anchor": 10,
+      "head": 10,
+    },
+    "type": "insert",
+  },
+]
+`;

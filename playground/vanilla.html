@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BlockNote Vanilla JS / Standalone Demo (by duxbo)</title>
+    <!-- Stylesheet độc lập từ gói packages/vanilla chứa toàn bộ CSS -->
+    <link rel="stylesheet" href="/vanilla/vanilla.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #f8f9fa;
+        color: #212529;
+      }
+      .header {
+        background: #ffffff;
+        padding: 14px 24px;
+        border-bottom: 1px solid #e9ecef;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 1.15rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .badge {
+        font-size: 0.75rem;
+        background: #e7f5ff;
+        color: #1c7ed6;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+      .btn {
+        background: #228be6;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.8125rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+      }
+      .btn:hover {
+        background: #1c7ed6;
+      }
+      .btn-outline {
+        background: transparent;
+        color: #495057;
+        border: 1px solid #ced4da;
+      }
+      .btn-outline:hover {
+        background: #f1f3f5;
+      }
+      .container {
+        max-width: 960px;
+        margin: 24px auto;
+        padding: 0 16px 80px 16px;
+      }
+      .card {
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        border: 1px solid #e9ecef;
+        padding: 24px;
+        min-height: 700px;
+      }
+      .info-box {
+        background: #e7f5ff;
+        border: 1px solid #a5d8ff;
+        padding: 12px 16px;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>
+        <span>🍦</span>
+        BlockNote Vanilla JS / Standalone
+        <span class="badge">Author: duxbo</span>
+        <span class="badge" style="background: #ebfbee; color: #2b8a3e;">100% Full Features</span>
+      </h1>
+      <div style="display: flex; gap: 8px;">
+        <a class="btn" style="background: #40c057;" href="/vue.html">💚 Mở Vue 3 Demo</a>
+        <a class="btn" style="background: #4c6ef5;" href="/">🎨 Mở React Demo</a>
+        <button class="btn btn-outline" id="btn-export-md">⬇️ Markdown</button>
+        <button class="btn btn-outline" id="btn-export-json">⬇️ JSON</button>
+        <button class="btn btn-outline" id="btn-export-html">⬇️ HTML</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="info-box">
+        <b>💡 Vanilla JavaScript Standalone Mode:</b> Không cần React hay Vue trong dự án của bạn! File này dùng HTML thuần và nhúng <code>blocknote-vanilla.min.js</code>. 
+        Đã tích hợp <b>100% Floating Toolbar, Slash Menu (/), 6 chấm kéo thả, Math KaTeX, Mermaid Diagram, và Code Shiki</b>!
+      </div>
+
+      <div class="card">
+        <div id="my-vanilla-editor"></div>
+      </div>
+    </div>
+
+    <!-- Nạp Standalone Bundle đầy đủ 100% tính năng của duxbo -->
+    <script src="/vanilla/blocknote-vanilla.min.js"></script>
+    <script>
+      BlockNote.create({
+        element: "#my-vanilla-editor",
+        theme: "light",
+        initialContent: [
+          {
+            type: "heading",
+            props: { level: 1 },
+            content: "Vanilla JS / Standalone Editor (by duxbo)",
+          },
+          {
+            type: "paragraph",
+            content: [
+              {
+                type: "text",
+                text: "Đây là trang web HTML thuần được nhúng qua ",
+              },
+              {
+                type: "text",
+                text: "<script src=\"blocknote-vanilla.min.js\">",
+                styles: { code: true },
+              },
+              {
+                type: "text",
+                text: " giống mô hình ",
+              },
+              {
+                type: "text",
+                text: "TinyMCE CDN",
+                styles: { bold: true, textColor: "blue" },
+              },
+              {
+                type: "text",
+                text: ". Có đầy đủ mọi thanh công cụ không thiếu gì!",
+              },
+            ],
+          },
+          {
+            type: "heading",
+            props: { level: 2 },
+            content: "1. Thử nghiệm các thanh công cụ",
+          },
+          {
+            type: "checkListItem",
+            props: { checked: true },
+            content: "Bôi đen đoạn chữ này -> Floating Formatting Toolbar tự động hiện ra",
+          },
+          {
+            type: "checkListItem",
+            props: { checked: true },
+            content: "Gõ phím tắt / -> Slash Menu hiện ra đầy đủ các loại khối",
+          },
+          {
+            type: "checkListItem",
+            props: { checked: true },
+            content: "Rê chuột vào mép trái -> Icon 6 chấm kéo thả và nút + hoạt động 100%",
+          },
+          {
+            type: "heading",
+            props: { level: 2 },
+            content: "2. Khối Code với Shiki Highlighter",
+          },
+          {
+            type: "codeBlock",
+            props: { language: "javascript" },
+            content: [
+              {
+                type: "text",
+                text: "// Khởi tạo Vanilla BlockNote trong HTML thuần\nBlockNote.create({ element: '#my-editor' }).then(editor => {\n  console.log('Editor ready!');\n});",
+                styles: {},
+              },
+            ],
+          },
+          {
+            type: "heading",
+            props: { level: 2 },
+            content: "3. Khối Trích dẫn (Quote) & Khối Đa cột (Multi-column)",
+          },
+          {
+            type: "quote",
+            content: "BlockNote Vanilla JS chạy 100% TypeScript DOM thuần khiết, 0% React, siêu nhẹ và tải tức thì!",
+          },
+        ],
+      }).then((instance) => {
+        window.editorInstance = instance;
+
+        document.getElementById("btn-export-md").onclick = async () => {
+          const md = await instance.getMarkdown();
+          alert("Markdown:\\n\\n" + md);
+        };
+
+        document.getElementById("btn-export-json").onclick = () => {
+          const json = JSON.stringify(instance.getJSON(), null, 2);
+          console.log("JSON:", json);
+          alert("Đã xuất JSON ra Console (F12)!");
+        };
+
+        document.getElementById("btn-export-html").onclick = async () => {
+          const html = await instance.getHTML();
+          alert("HTML:\\n\\n" + html);
+        };
+      });
+    </script>
+  </body>
+</html>

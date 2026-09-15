@@ -1,0 +1,22 @@
+[
+  {
+    "attrs": {
+      "id": "1",
+    },
+    "content": [
+      {
+        "attrs": {
+          "backgroundColor": "default",
+          "caption": "",
+          "name": "example",
+          "previewWidth": 256,
+          "showPreview": true,
+          "textAlignment": "left",
+          "url": "exampleURL",
+        },
+        "type": "image",
+      },
+    ],
+    "type": "blockContainer",
+  },
+]

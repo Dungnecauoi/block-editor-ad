@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BlockNote Vue 3 Demo (by duxbo)</title>
+    <!-- Stylesheet của Vue package -->
+    <link rel="stylesheet" href="/vue/vue.css" />
+    <link rel="stylesheet" href="/katex.min.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #f8f9fa;
+        color: #212529;
+      }
+      .header {
+        background: #ffffff;
+        padding: 14px 24px;
+        border-bottom: 1px solid #e9ecef;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 1.15rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .badge {
+        font-size: 0.75rem;
+        background: #e6fcf5;
+        color: #0ca678;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+      .btn {
+        background: #40c057;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.8125rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+      }
+      .btn:hover {
+        background: #37b24d;
+      }
+      .btn-outline {
+        background: transparent;
+        color: #495057;
+        border: 1px solid #ced4da;
+      }
+      .btn-outline:hover {
+        background: #f1f3f5;
+      }
+      .container {
+        max-width: 960px;
+        margin: 24px auto;
+        padding: 0 16px 80px 16px;
+      }
+      .card {
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        border: 1px solid #e9ecef;
+        padding: 24px;
+        min-height: 700px;
+      }
+      .info-box {
+        background: #e6fcf5;
+        border: 1px solid #96f2d7;
+        padding: 12px 16px;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="vue-app">
+      <div class="header">
+        <h1>
+          <span>💚</span>
+          BlockNote Vue 3 Adapter
+          <span class="badge">Author: duxbo</span>
+          <span class="badge" style="background: #ebfbee; color: #2b8a3e;">100% Full Features</span>
+        </h1>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <a class="btn" style="background: #fd7e14;" href="/vanilla.html">🍦 Mở Vanilla JS Demo</a>
+          <a class="btn" style="background: #4c6ef5;" href="/">🎨 Mở React Demo</a>
+          <button class="btn btn-outline" @click="toggleTheme">
+            Chế độ: {{ theme === 'light' ? 'Tối 🌙' : 'Sáng ☀️' }}
+          </button>
+          <button class="btn btn-outline" @click="exportMarkdown">
+            ⬇️ Markdown
+          </button>
+          <button class="btn btn-outline" @click="exportJSON">
+            ⬇️ JSON
+          </button>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="info-box">
+          <b>💡 Vue 3 Full Parity Mode:</b> Component <code>&lt;BlockNoteView /&gt;</code> của Vue 3 sở hữu <b>100% thanh Floating Toolbar, Slash Menu (/), 6 chấm kéo thả, Math KaTeX, Mermaid Diagram, và Code Shiki</b> y hệt như bản React!
+        </div>
+
+        <div class="card" :style="{ background: theme === 'dark' ? '#1f2023' : '#ffffff' }">
+          <block-note-view
+            ref="viewRef"
+            :editor="editor"
+            :theme="theme"
+            @change="onEditorChange"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Script Vue 3 -->
+    <script type="module">
+      import { createApp, ref } from "vue";
+      import { BlockNoteSchema, defaultBlockSpecs } from "@blocknote/core";
+      import { syntaxHighlighter } from "@blocknote/code-block";
+      import { ColumnBlock, ColumnListBlock, multiColumnDropCursor } from "@blocknote/xl-multi-column";
+      import { useCreateBlockNote, BlockNoteView } from "@blocknote/vue";
+
+      const schema = BlockNoteSchema.create({
+        blockSpecs: {
+          ...defaultBlockSpecs,
+          column: ColumnBlock,
+          columnList: ColumnListBlock,
+        },
+      });
+
+      const App = {
+        components: {
+          BlockNoteView,
+        },
+        setup() {
+          const theme = ref("light");
+          const viewRef = ref(null);
+
+          const editor = useCreateBlockNote({
+            schema,
+            dropCursor: multiColumnDropCursor,
+            extensions: [syntaxHighlighter],
+            initialContent: [
+              {
+                type: "heading",
+                props: { level: 1 },
+                content: "Vue 3 BlockNote Component (by duxbo)",
+              },
+              {
+                type: "paragraph",
+                content: [
+                  {
+                    type: "text",
+                    text: "Component Vue 3 này sở hữu ",
+                  },
+                  {
+                    type: "text",
+                    text: "100% ĐẦY ĐỦ TÍNH NĂNG",
+                    styles: { bold: true, textColor: "green" },
+                  },
+                  {
+                    type: "text",
+                    text: " như bản React: có Floating Toolbar bôi đen chữ, Slash Menu, và 6 chấm kéo thả!",
+                  },
+                ],
+              },
+              {
+                type: "heading",
+                props: { level: 2 },
+                content: "1. Thử nghiệm các tính năng trong Vue 3",
+              },
+              {
+                type: "checkListItem",
+                props: { checked: true },
+                content: "Bôi đen đoạn văn bản này để thấy Floating Toolbar",
+              },
+              {
+                type: "checkListItem",
+                props: { checked: true },
+                content: "Gõ phím tắt / để mở Slash Menu trong Vue 3",
+              },
+              {
+                type: "checkListItem",
+                props: { checked: true },
+                content: "Rê chuột vào cạnh trái để kéo thả 6 chấm trong Vue 3",
+              },
+              {
+                type: "heading",
+                props: { level: 2 },
+                content: "2. Khối Code Highlight (Shiki)",
+              },
+              {
+                type: "codeBlock",
+                props: { language: "typescript" },
+                content: [
+                  {
+                    type: "text",
+                    text: "// Vue 3 Composition API\nimport { useCreateBlockNote, BlockNoteView } from '@blocknote/vue';\n\nconst editor = useCreateBlockNote();",
+                    styles: {},
+                  },
+                ],
+              },
+              {
+                type: "heading",
+                props: { level: 2 },
+                content: "3. Khối Trích dẫn (Quote)",
+              },
+              {
+                type: "quote",
+                content: "Component Vue 3 này hoạt động 100% Native, 0% React, siêu mượt và hỗ trợ đầy đủ Floating Toolbar, Slash Menu, 6 chấm kéo thả!",
+              },
+            ],
+          });
+
+          const onEditorChange = (ed) => {
+            console.log("Vue 3 Editor updated. Total blocks:", ed.document.length);
+          };
+
+          const toggleTheme = () => {
+            theme.value = theme.value === "light" ? "dark" : "light";
+          };
+
+          const exportMarkdown = async () => {
+            const md = await viewRef.value.getMarkdown();
+            alert("Markdown từ Vue 3:\\n\\n" + md);
+          };
+
+          const exportJSON = () => {
+            const json = JSON.stringify(viewRef.value.getJSON(), null, 2);
+            console.log("JSON:", json);
+            alert("Đã xuất JSON ra Console (F12)!");
+          };
+
+          return {
+            editor,
+            theme,
+            viewRef,
+            toggleTheme,
+            onEditorChange,
+            exportMarkdown,
+            exportJSON,
+          };
+        },
+      };
+
+      createApp(App).mount("#vue-app");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "title": "Built-in Blocks",
+  "pages": [
+    "typography",
+    "list-types",
+    "tables",
+    "embeds",
+    "code-blocks",
+    "math",
+    "diagrams",
+    "inline-content",
+    "custom",
+    "..."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@blocknote/dev-scripts",
+  "homepage": "https://github.com/TypeCellOS/BlockNote",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TypeCellOS/BlockNote.git",
+    "directory": "packages/dev-scripts"
+  },
+  "license": "MPL-2.0",
+  "version": "0.54.2",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "gen": "vp run gen:examples && vp run gen:docs",
+    "lint": "vp lint examples",
+    "clean": "rimraf dist && rimraf types"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.2.3",
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "rimraf": "^5.0.10",
+    "tinyglobby": "0.2.12",
+    "tsx": "^4.20.6",
+    "typescript": "^7.0.2",
+    "vite-plus": "catalog:"
+  },
+  "dependencies": {}
+}
